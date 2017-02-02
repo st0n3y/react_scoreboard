@@ -1,0 +1,141 @@
+npm init -y
+
+npm install --save react react-dom
+
+npm install --save-dev webpack 
+npm install --save-dev babel-core babel-loader 
+npm install --save-dev babel-preset-react babel-preset-es2015
+
+----------// in terminal //----------
+
+touch .babelrc
+
+----------// in .babelrc //----------
+
+{
+	"presets": ["react", "es2015"]
+}
+
+----------// in terminal //----------
+
+touch webpack.config.js
+
+----------// in webpack.config.js //----------
+
+module.exports = {
+	entry: './app.js',
+
+	output: {
+		path: 'build',
+		filename: 'bundle.js'
+	},
+
+	module: {
+		loaders: [
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: 'babel-loader'
+			}
+		]
+	}
+}
+
+----------// in index.html //----------
+
+<body>
+	<div>...</div>
+	<script src="bundle.js"></script>
+</body>
+
+----------// in app.js //----------
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+----------// in terminal //----------
+
+(if webpack installed globally:) webpack
+(if webpack installed locally:) node_modules/.bin/webpack
+
+----------// in package.json //----------
+
+"scripts": {
+	"build": "webpack"
+}
+
+----------// in terminal (to run build script) //----------
+
+npm run build
+
+----------// in terminal //----------
+
+npm install --save-dev webpack-dev-server
+
+----------// in package.json //----------
+
+"build": "webpack",
+"start": "webpack-dev-server --progress"
+
+----------// in terminal (to start server) //----------
+
+npm start
+
+----------// in browser (to view status info about build) //----------
+
+localhost:8080/webpack-dev-server/
+
+----------// in terminal //----------
+
+npm install --save-dev style-loader css-loader sass-loader
+
+----------// in webpack.config.js //----------
+
+module: {
+	loaders: [
+		{
+			test: /\.scss$/,
+			loader: ["style-loader", "css-loader", "sass-loader"]
+		},
+	]
+}
+
+----------// in app.js //----------
+
+import './styles.scss'
+
+----------// in package.json (to embed changes in bundle.js at runtime) //----------
+
+"build": "webpack",
+"start": "webpack-dev-server --progress --inline"
+
+----------// in terminal (to install react hotloader) //----------
+
+npm install --save-dev react-hot-loader
+
+----------// in webpack.config.js //----------
+module: {
+	loaders: [
+		{
+			test: /\.js$/,
+			exclude: /node-modules/,
+			loader: ["react-hot", "babel-loader"]
+		},
+	]
+}
+
+----------// in package.json //----------
+
+"build": "webpack",
+"start": "webpack-dev-server --progress --inline --hot"
+
+
+
+
+----------// Or... //----------
+
+----------// in terminal //----------
+
+npm install -g create-react-app
+
+create-react-app <app name>
